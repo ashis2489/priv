@@ -250,6 +250,15 @@ a:focus-visible {
   color: #e8fbfc;
 }
 
+/* 2D portfolio card lift */
+.card-hover {
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+.card-hover:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.45);
+}
+
 /* HUD buttons */
 .btn-hud-primary {
   flex: 1;

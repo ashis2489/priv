@@ -10,6 +10,7 @@ export interface Project {
   challenges: string[];
   github: string;
   live: string;
+  year: string;
   color: string;
   accentColor: string;
   status: "live" | "wip" | "complete";
@@ -46,6 +47,7 @@ export const projects: Project[] = [
     ],
     github: "https://github.com/ashis2489/campus-delivery",
     live: "https://campus-delivery-demo.vercel.app",
+    year: "2025",
     color: "#2DE2E6",
     accentColor: "#1ab8bb",
     status: "complete",
@@ -80,6 +82,7 @@ export const projects: Project[] = [
     ],
     github: "https://github.com/ashis2489/disha-for-india",
     live: "https://disha-for-india.vercel.app",
+    year: "2026 – Present",
     color: "#FFB84D",
     accentColor: "#e6a030",
     status: "live",
@@ -114,8 +117,39 @@ export const projects: Project[] = [
     ],
     github: "https://github.com/ashis2489/nirogitanman",
     live: "https://nirogitanman.vercel.app",
+    year: "2025",
     color: "#A8E6CF",
     accentColor: "#7fcba5",
+    status: "live",
+  },
+  {
+    id: "portfolio-website",
+    number: "04",
+    title: "Portfolio Website",
+    description: "Responsive portfolio with interactive Three.js elements, deployed on Vercel.",
+    longDescription:
+      "A responsive portfolio built to showcase projects and skills, combining a clean 2D layout with an interactive Three.js 3D workspace. Created with modern responsive design principles and deployed on Vercel.",
+    tech: ["React.js", "Three.js", "HTML", "CSS", "JavaScript", "Vercel"],
+    features: [
+      "Interactive Three.js 3D workspace",
+      "Responsive 2D portfolio layout",
+      "Project, skills and contact sections",
+      "Modern responsive design principles",
+    ],
+    architecture: [
+      { layer: "Client", tech: "React.js + Three.js", role: "2D portfolio UI, 3D scene" },
+      { layer: "Styling", tech: "HTML + CSS + JavaScript", role: "Responsive layout, theming" },
+      { layer: "Hosting", tech: "Vercel", role: "Deployment & CDN" },
+    ],
+    challenges: [
+      "Balancing an interactive 3D scene with a fast, readable 2D portfolio",
+      "Keeping the experience responsive across desktop and mobile",
+    ],
+    github: "https://github.com/ashis2489/priv",
+    live: "https://ashis2489.github.io/priv/",
+    year: "2026",
+    color: "#9b80f8",
+    accentColor: "#7f68d8",
     status: "live",
   },
 ];

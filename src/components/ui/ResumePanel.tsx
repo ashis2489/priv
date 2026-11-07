@@ -26,19 +26,19 @@ export function ResumePanel() {
               {["#FF5F57","#FEBC2E","#28C840"].map((c,i) => (
                 <div key={i} className="w-2.5 h-2.5 rounded-full" style={{ background: c }} />
               ))}
-              <span className="text-[10px] text-[#5a6a78] ml-1">vedaa_resume.pdf</span>
+              <span className="text-[10px] text-[#5a6a78] ml-1">resume.pdf</span>
             </div>
 
             {/* Document preview */}
             <div className="p-5" style={{ background: "linear-gradient(160deg, #040e1a 0%, #07111f 100%)", minHeight: "180px" }}>
-              <div className="text-xl font-extrabold tracking-wider text-[#2DE2E6] mb-1">VEDAA</div>
-              <div className="text-[10px] tracking-widest text-[#20D9E8] mb-4">FULL-STACK DEVELOPER · CS & ENGINEERING</div>
+              <div className="text-xl font-extrabold tracking-wider text-[#2DE2E6] mb-1">ASHISH VIBHOR</div>
+              <div className="text-[10px] tracking-widest text-[#20D9E8] mb-4">PRODUCT ENGINEER · SOFTWARE DEVELOPER</div>
 
               {[
-                { label: "EDUCATION",   items: ["B.Tech CSE — Current Student"] },
-                { label: "SKILLS",      items: ["React · Next.js · Node.js · TypeScript", "MongoDB · Supabase · Docker · Git"] },
-                { label: "PROJECTS",    items: ["Campus Delivery", "Disha for India", "Nirogitanman"] },
-                { label: "CURRENTLY",   items: ["Cloud Architecture · System Design · DSA"] },
+                { label: "EDUCATION",   items: ["B.Tech CSE — Geeta University, Panipat · 2023–Present"] },
+                { label: "EXPERIENCE",  items: ["Web Dev Intern — TalentGro Global · Jun–Aug 2026", "Student Intern — Geeta Technical Hub · Jan–Mar 2024"] },
+                { label: "SKILLS",      items: ["React · Next.js · Three.js · TypeScript · Tailwind", "Node.js · Express · MongoDB · Supabase · Git"] },
+                { label: "PROJECTS",    items: ["Disha for India", "Campus Delivery", "Nirogitanman"] },
               ].map(section => (
                 <div key={section.label} className="mb-2.5">
                   <div className="text-[8px] tracking-[0.25em] text-[#20D9E8] mb-1">{section.label}</div>
@@ -59,10 +59,6 @@ export function ResumePanel() {
               DOWNLOAD ↓
             </a>
           </div>
-
-          <p className="text-[10px] text-[#3a5060] text-center">
-            Drop your PDF at <code className="text-[#20D9E8]">public/resume.pdf</code> to enable download
-          </p>
         </div>
       </div>
     </div>

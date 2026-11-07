@@ -1,5 +1,5 @@
 export type SkillLevel = "learning" | "comfortable" | "advanced";
-export type SkillCategory = "frontend" | "backend" | "database" | "cloud" | "devops" | "tools";
+export type SkillCategory = "frontend" | "backend" | "database" | "cloud" | "devops" | "tools" | "fundamentals";
 
 export interface Skill {
   name: string;
@@ -15,10 +15,13 @@ export const skills: Skill[] = [
   { name: "React",        category: "frontend", level: "advanced",    color: "#61DAFB" },
   { name: "Next.js",      category: "frontend", level: "comfortable", color: "#ffffff" },
   { name: "Tailwind CSS", category: "frontend", level: "advanced",    color: "#06B6D4" },
+  { name: "HTML",         category: "frontend", level: "advanced",    color: "#E34F26" },
+  { name: "CSS",          category: "frontend", level: "advanced",    color: "#1572B6" },
   // Backend
   { name: "Node.js",      category: "backend",  level: "comfortable", color: "#68A063" },
   { name: "Express.js",   category: "backend",  level: "comfortable", color: "#aaaaaa" },
   { name: "REST APIs",    category: "backend",  level: "comfortable", color: "#FFB84D" },
+  { name: "Python",       category: "backend",  level: "comfortable", color: "#3776AB" },
   { name: "C++",          category: "backend",  level: "comfortable", color: "#00599C" },
   { name: "Java",         category: "backend",  level: "comfortable", color: "#ED8B00" },
   // Database
@@ -26,6 +29,7 @@ export const skills: Skill[] = [
   { name: "Mongoose",     category: "database", level: "comfortable", color: "#880000" },
   { name: "Supabase",     category: "database", level: "comfortable", color: "#3ECF8E" },
   { name: "PostgreSQL",   category: "database", level: "learning",    color: "#336791" },
+  { name: "SQL",          category: "database", level: "comfortable", color: "#4479A1" },
   // Cloud
   { name: "Vercel",       category: "cloud",    level: "comfortable", color: "#F4F7FA" },
   { name: "AWS Basics",   category: "cloud",    level: "learning",    color: "#FF9900" },
@@ -38,6 +42,13 @@ export const skills: Skill[] = [
   { name: "VS Code",      category: "tools",    level: "advanced",    color: "#007ACC" },
   { name: "Figma",        category: "tools",    level: "comfortable", color: "#F24E1E" },
   { name: "Postman",      category: "tools",    level: "comfortable", color: "#FF6C37" },
+  // CS Fundamentals
+  { name: "DSA",          category: "fundamentals", level: "advanced",    color: "#FF6F61" },
+  { name: "OOP",          category: "fundamentals", level: "comfortable", color: "#9b80f8" },
+  { name: "DBMS",         category: "fundamentals", level: "comfortable", color: "#5AA9E6" },
+  { name: "Operating Systems", category: "fundamentals", level: "comfortable", color: "#A8E6CF" },
+  { name: "Computer Networks", category: "fundamentals", level: "comfortable", color: "#FFB84D" },
+  { name: "Software Engineering", category: "fundamentals", level: "comfortable", color: "#20D9E8" },
 ];
 
 export const skillCategories: { key: SkillCategory; label: string; icon: string }[] = [
@@ -47,6 +58,7 @@ export const skillCategories: { key: SkillCategory; label: string; icon: string 
   { key: "cloud",    label: "Cloud",     icon: "☁" },
   { key: "devops",   label: "DevOps",    icon: "🐳" },
   { key: "tools",    label: "Tools",     icon: "🔧" },
+  { key: "fundamentals", label: "CS Fundamentals", icon: "📘" },
 ];
 
 export const levelColors: Record<SkillLevel, string> = {

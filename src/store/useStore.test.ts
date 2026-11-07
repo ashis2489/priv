@@ -47,7 +47,7 @@ describe("panels", () => {
   });
 
   it("openPanel with data", () => {
-    const data = { id: "test", number: "01", title: "Test", description: "desc", longDescription: "long", tech: [], features: [], architecture: [], challenges: [], github: "", live: "", color: "#000", accentColor: "#000", status: "live" as const };
+    const data = { id: "test", number: "01", title: "Test", description: "desc", longDescription: "long", tech: [], features: [], architecture: [], challenges: [], github: "", live: "", year: "2026", color: "#000", accentColor: "#000", status: "live" as const };
     useStore.getState().openPanel("project", data);
     expect(useStore.getState().activePanelData).toBe(data);
   });
