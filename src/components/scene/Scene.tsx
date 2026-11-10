@@ -5,6 +5,7 @@ import { Lighting }         from "./Lighting";
 import { RoomTeleporter }   from "./RoomTeleporter";
 import { ProgressTracker }  from "./ProgressTracker";
 import { FloatingParticles } from "./FloatingParticles";
+import { AiAssistant }      from "./AiAssistant";
 
 export function Scene() {
   return (
@@ -18,6 +19,7 @@ export function Scene() {
 
       <MultiRoomScene />
       <FloatingParticles />
+      <AiAssistant />
       <PlayerController />
       <RoomTeleporter />
     </>

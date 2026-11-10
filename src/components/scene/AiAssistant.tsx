@@ -11,15 +11,24 @@ const TIPS = [
   "Shift sprints · Esc releases the mouse",
   "Glowing doors lead to PROJECTS, SKILLS and CONTACT",
   "The minimap shows where you are",
+  "I follow you into every room — keep exploring!",
 ];
 
-const _wp = new Vector3();
+const FOLLOW_DIST = 0.9; // side offset from the player
+const SNAP_DIST_SQ = 36; // >6u jump = room teleport, don't fly across the map
 
-/** Floating AI guide in the Cyber Core — bobs, faces the player, cycles help tips. */
-export function AiAssistant({ position }: { position: [number, number, number] }) {
+const _wp = new Vector3();
+const _target = new Vector3();
+const _fwd = new Vector3();
+const _right = new Vector3();
+const _UP = new Vector3(0, 1, 0);
+
+/** Companion AI guide — floats at the player's side in every room, faces them, cycles tips. */
+export function AiAssistant() {
   const [tip, setTip] = useState(0);
   const group = useRef<Group>(null);
   const orbit = useRef<Group>(null);
+  const placed = useRef(false);
   const cursor = useCursor();
   const timer = useRef<number | null>(null);
 
@@ -33,15 +42,34 @@ export function AiAssistant({ position }: { position: [number, number, number] }
     return () => { if (timer.current) window.clearInterval(timer.current); };
   }, []);
 
-  useFrame(({ clock, camera }) => {
+  useFrame(({ clock, camera }, delta) => {
     const g = group.current;
     if (!g) return;
     const t = clock.elapsedTime;
-    g.position.y = position[1] + Math.sin(t * 1.6) * 0.07;
+
+    // Target = player's right side. Forward is flattened so mouse pitch
+    // doesn't lift the bot up/down when you look at the ceiling.
+    _fwd.set(0, 0, -1).applyQuaternion(camera.quaternion);
+    _fwd.y = 0;
+    if (_fwd.lengthSq() < 1e-6) _fwd.set(0, 0, -1);
+    else _fwd.normalize();
+    _right.crossVectors(_fwd, _UP);
+    _target.copy(camera.position).addScaledVector(_right, FOLLOW_DIST);
+    _target.y = camera.position.y - 0.12 + Math.sin(t * 1.6) * 0.07;
+
+    // First frame or room teleport (camera jumped): snap. Otherwise glide,
+    // so turning makes the bot orbit you instead of jittering.
+    if (!placed.current || g.position.distanceToSquared(_target) > SNAP_DIST_SQ) {
+      g.position.copy(_target);
+      placed.current = true;
+    } else {
+      g.position.lerp(_target, 1 - Math.exp(-6 * Math.min(delta, 0.1)));
+    }
+
     // Turn to face the player, the way a guide would.
     g.getWorldPosition(_wp);
-    const target = Math.atan2(camera.position.x - _wp.x, camera.position.z - _wp.z);
-    let d = target - g.rotation.y;
+    const face = Math.atan2(camera.position.x - _wp.x, camera.position.z - _wp.z);
+    let d = face - g.rotation.y;
     d = Math.atan2(Math.sin(d), Math.cos(d));
     g.rotation.y += d * 0.08;
     if (orbit.current) orbit.current.rotation.y = t * 1.2;
@@ -50,7 +78,6 @@ export function AiAssistant({ position }: { position: [number, number, number] }
   return (
     <group
       ref={group}
-      position={position}
       {...cursor}
       onClick={e => { e.stopPropagation(); setTip(i => (i + 1) % TIPS.length); schedule(); }}
     >
