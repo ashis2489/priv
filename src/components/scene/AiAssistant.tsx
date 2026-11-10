@@ -14,7 +14,8 @@ const TIPS = [
   "I follow you into every room — keep exploring!",
 ];
 
-const FOLLOW_DIST = 0.9; // side offset from the player
+const FRONT_DIST = 1.9; // ahead of the player
+const SIDE_DIST = 0.6; // biased a little to the right of center
 const SNAP_DIST_SQ = 36; // >6u jump = room teleport, don't fly across the map
 
 const _wp = new Vector3();
@@ -47,14 +48,17 @@ export function AiAssistant() {
     if (!g) return;
     const t = clock.elapsedTime;
 
-    // Target = player's right side. Forward is flattened so mouse pitch
-    // doesn't lift the bot up/down when you look at the ceiling.
+    // Target = slightly ahead of the player, a bit right of center.
+    // Forward is flattened so mouse pitch doesn't lift the bot up/down
+    // when you look at the ceiling.
     _fwd.set(0, 0, -1).applyQuaternion(camera.quaternion);
     _fwd.y = 0;
     if (_fwd.lengthSq() < 1e-6) _fwd.set(0, 0, -1);
     else _fwd.normalize();
     _right.crossVectors(_fwd, _UP);
-    _target.copy(camera.position).addScaledVector(_right, FOLLOW_DIST);
+    _target.copy(camera.position)
+      .addScaledVector(_fwd, FRONT_DIST)
+      .addScaledVector(_right, SIDE_DIST);
     _target.y = camera.position.y - 0.12 + Math.sin(t * 1.6) * 0.07;
 
     // First frame or room teleport (camera jumped): snap. Otherwise glide,
