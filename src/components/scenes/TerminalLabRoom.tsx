@@ -141,25 +141,29 @@ function ServerRack({ position }: { position: [number, number, number] }) {
 }
 
 // ── Wall-mounted status board ─────────────────────────────────────────────
+// Mounted upper-left, above the left racks: the old centre position sat
+// directly behind the ops-desk monitor (its top edge is y=2.195, 1.2u in
+// front of the wall), which hid ~60% of the board from every normal angle.
+// The cable tray tops out at y=1.97, so the plate sits on it.
 function StatusBoard() {
   const Z = -D / 2 + 0.04;
   const tex = useMemo(() => makeStatusTex(STATUS_ITEMS), []);
   return (
-    <group position={[0, 1.9, Z]}>
+    <group position={[-3.0, 2.52, Z]}>
       {/* Backing plate */}
       <mesh position={[0, 0, -0.012]}>
-        <boxGeometry args={[4.2, 0.88, 0.025]} />
+        <boxGeometry args={[3.1, 1.1, 0.025]} />
         <meshStandardMaterial color="#080c14" roughness={0.6} metalness={0.3} />
       </mesh>
-      {/* Canvas face */}
+      {/* Canvas face — 3.0×1.0 matches the 640×220 canvas aspect (was 4.0×0.78, stretched) */}
       <mesh position={[0, 0, 0.016]}>
-        <planeGeometry args={[4.0, 0.78]} />
+        <planeGeometry args={[3.0, 1.0]} />
         <meshStandardMaterial map={tex} toneMapped={false}
           emissive="#ffffff" emissiveMap={tex} emissiveIntensity={0.22} />
       </mesh>
       {/* Top accent */}
-      <mesh position={[0, 0.386, 0.019]}>
-        <boxGeometry args={[4.0, 0.006, 0.003]} />
+      <mesh position={[0, 0.496, 0.019]}>
+        <boxGeometry args={[3.0, 0.006, 0.003]} />
         <meshStandardMaterial color="#8a5ae8" emissive="#8a5ae8" emissiveIntensity={2} />
       </mesh>
     </group>
