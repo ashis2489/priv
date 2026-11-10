@@ -114,12 +114,6 @@ function makeCentreTex() {
     ctx.fillStyle = "#20D9E8" + "60";
     ctx.fillRect(40, 110, w - 80, 1);
 
-    // "KNOWLEDGE LAB" large label in teal
-    ctx.font = "600 32px Arial";
-    ctx.fillStyle = "#20D9E8";
-    ctx.letterSpacing = "2px";
-    ctx.fillText("KNOWLEDGE LAB", w / 2, 148);
-
     // 2×3 skill grid
     const skills = [
       { icon: "</>",   label: "WEB\nDEVELOPMENT",        sub: "HTML · CSS · JavaScript",  color: "#20D9E8" },
@@ -132,7 +126,7 @@ function makeCentreTex() {
 
     const cols = 3;
     const cw = (w - 48) / cols;
-    const topY = 170;
+    const topY = 130; // just below the header divider (was 170, left a dead gap)
     const ch = (h - topY - 16) / 2;
 
     skills.forEach((sk, i) => {

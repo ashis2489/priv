@@ -331,7 +331,8 @@ export function OpenWorldFloor() {
       <Corridor cx={-7} cz={0} length={4} axis="x" />
       <DoorOpening pos={[-9, 0, 0]} rot={[0, -Math.PI / 2, 0]} openW={CW} wallH={H} wallColor={WALL_NEUTRAL} showDoor={false} />
       <DoorOpening pos={[-5, 0, 0]} rot={[0, Math.PI / 2, 0]} openW={CW} wallH={H} wallColor={WALL_WARM} showDoor={false} />
-      <RoomSign position={[-14, 2.5, -4.35]} label="SKILLS" sub="Knowledge Lab" color="#cbb89a" />
+      {/* No RoomSign here: KnowledgeLabRoom's centre panel already renders a
+          large SKILLS / KNOWLEDGE LAB header — the sign overlapped it. */}
 
       {/* ══ TERMINAL LAB / EXPERIENCE ══ */}
       <RoomBox cx={14} cz={0} wallColor={WALL_COOL} floorColor={FLOOR_CONC_DK}
