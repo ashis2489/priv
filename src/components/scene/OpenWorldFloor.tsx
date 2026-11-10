@@ -340,7 +340,8 @@ export function OpenWorldFloor() {
       <Corridor cx={7} cz={0} length={4} axis="x" />
       <DoorOpening pos={[9, 0, 0]} rot={[0, Math.PI / 2, 0]} openW={CW} wallH={H} wallColor={WALL_NEUTRAL} showDoor={false} />
       <DoorOpening pos={[5, 0, 0]} rot={[0, -Math.PI / 2, 0]} openW={CW} wallH={H} wallColor={WALL_WARM} showDoor={false} />
-      <RoomSign position={[14, 2.5, -4.35]} label="EXPERIENCE" sub="Terminal Lab" color="#cbb89a" />
+      {/* No RoomSign here: TerminalLabRoom's wall already renders a large
+          TERMINAL LAB / ENGINEERING & EXPERIENCE header — the sign overlapped it. */}
 
       {/* ══ PROJECT LAB ══ */}
       <RoomBox cx={0} cz={16} wallColor={WALL_NEUTRAL} floorColor={FLOOR_CONCRETE}
