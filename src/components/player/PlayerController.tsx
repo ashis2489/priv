@@ -121,7 +121,7 @@ const WALLS: W[] = [
   [9, 19,   36.2, 36.5],           // south wall
 ];
 
-function blocked(x: number, z: number): boolean {
+export function blocked(x: number, z: number): boolean {
   for (const [x0, x1, z0, z1] of WALLS) {
     if (x + R > x0 && x - R < x1 && z + R > z0 && z - R < z1) return true;
   }

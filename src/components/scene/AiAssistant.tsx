@@ -3,6 +3,7 @@ import { useFrame } from "@react-three/fiber";
 import { Text } from "@react-three/drei";
 import { Vector3, type Group } from "three";
 import { useCursor } from "../../utils/useCursor";
+import { blocked } from "../player/PlayerController";
 
 const TIPS = [
   "Hi! I'm your AI guide — click me for a tip",
@@ -16,12 +17,13 @@ const TIPS = [
 
 const FRONT_DIST = 1.9; // ahead of the player
 const SIDE_DIST = 0.6; // biased a little to the right of center
-const SNAP_DIST_SQ = 36; // >6u jump = room teleport, don't fly across the map
+const TELEPORT_DIST_SQ = 9; // >3u camera jump in one frame = room transition
 
 const _wp = new Vector3();
 const _target = new Vector3();
 const _fwd = new Vector3();
 const _right = new Vector3();
+const _lastCam = new Vector3(Infinity, Infinity, Infinity);
 const _UP = new Vector3(0, 1, 0);
 
 /** Companion AI guide — floats at the player's side in every room, faces them, cycles tips. */
@@ -61,14 +63,30 @@ export function AiAssistant() {
       .addScaledVector(_right, SIDE_DIST);
     _target.y = camera.position.y - 0.12 + Math.sin(t * 1.6) * 0.07;
 
-    // First frame or room teleport (camera jumped): snap. Otherwise glide,
-    // so turning makes the bot orbit you instead of jittering.
-    if (!placed.current || g.position.distanceToSquared(_target) > SNAP_DIST_SQ) {
+    // First frame or room teleport (camera jumped >3u in one frame): snap.
+    // Otherwise glide, but stop at walls: try the full target, slide along
+    // whichever axis is still open, else hold position — never enter a wall.
+    if (!placed.current || camera.position.distanceToSquared(_lastCam) > TELEPORT_DIST_SQ) {
       g.position.copy(_target);
       placed.current = true;
     } else {
+      if (blocked(_target.x, _target.z)) {
+        const cx = g.position.x;
+        const cz = g.position.z;
+        if (!blocked(cx, _target.z)) _target.x = cx;
+        else if (!blocked(_target.x, cz)) _target.z = cz;
+        else { _target.x = cx; _target.z = cz; }
+      }
+      const px = g.position.x;
+      const pz = g.position.z;
       g.position.lerp(_target, 1 - Math.exp(-6 * Math.min(delta, 0.1)));
+      // Never end a frame inside a wall (corner-cutting during the glide).
+      if (blocked(g.position.x, g.position.z)) {
+        g.position.x = px;
+        g.position.z = pz;
+      }
     }
+    _lastCam.copy(camera.position);
 
     // Turn to face the player, the way a guide would.
     g.getWorldPosition(_wp);
